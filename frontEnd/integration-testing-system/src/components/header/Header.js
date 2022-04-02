@@ -1,8 +1,14 @@
-import React from 'react';
-import Routes from '../../routes';
+import React, {useContext} from 'react';
+import Routess from '../../Routess';
 import {Link } from 'react-router-dom'
+import { Context } from '../context/Context';
 
 export default function Header() {
+  const {user, dispatch} = useContext(Context)
+
+  const handleClick = () => {
+    dispatch({type: "LOGOUT"})
+  }
   return (
       <div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -13,19 +19,27 @@ export default function Header() {
                   </button>
                   <div className="collapse navbar-collapse" id="navbarNav">
                       <ul className="navbar-nav  mx-lg-auto text-center">
-                          <li className="nav-item">
-                            <Link className="nav-link" aria-current="page" to='/'>Login</Link>
-                          </li>
-                          <li className="nav-item">
-                            <Link className="nav-link" aria-current="page" to='/register'>Register</Link>
-                          </li>
-        
+                        {user ? (<button type='button' className="nav-item btn-primary" onClick={handleClick}>
+                            Logout
+                          </button>) : 
+                          (
+                            <div>
+                              <li className="nav-item">
+                                <Link className="nav-link" aria-current="page" to='/'>Login</Link>
+                              </li>
+                              <li className="nav-item">
+                                <Link className="nav-link" aria-current="page" to='/register'>Register</Link>
+                              </li>
+                            </div>
+                          )
+                          
+                        }
                       </ul>
                   </div>
               </div>
           </nav>
           <div>
-            <Routes />
+            <Routess />
           </div>
           
       </div>
