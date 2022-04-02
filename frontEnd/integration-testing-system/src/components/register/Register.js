@@ -13,6 +13,7 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(e)
         setError(false);
         try{
             const res = await axios.post(`Home/createuser?username=${uName}&firstname=${fName}&lastname=${lName}&email=${email}&password=${password}`, 

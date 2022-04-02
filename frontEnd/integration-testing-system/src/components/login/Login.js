@@ -9,16 +9,15 @@ export default function Login() {
   const [password, setPassState] = useState("");
   const {dispatch, isFetching} = useContext(Context);
 
-  console.log(user, password)
   const handleSubmit = async(e) => {
     e.preventDefault()
     dispatch({type: "LOGIN_START"})
     try{
       const res = await axios.post(`Home/login?username=${user}&password=${password}`,{})
-      dispatch({type: "LOGIN_SUCCESS", payload: res.data})
       console.log(res.data)
       if(res.data){
-        window.location.replace("/menu")
+        dispatch({type: "LOGIN_SUCCESS", payload: res.data})
+        // window.location.replace("/menu")
       }
       console.log(res)
     }catch(err){
@@ -38,11 +37,11 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Username</label>
-            <input type="text" className="form-control" aria-describedby="emailHelp" onChange={(e) => setUserState(e.target.value)} />
+            <input type="text" className="form-control" required aria-describedby="emailHelp" onChange={(e) => setUserState(e.target.value)} />
           </div>
           <div className="mb-3">
             <label className="form-label">Password</label>
-            <input type="password" className="form-control"  onChange={(e) => setPassState(e.target.value)} />
+            <input type="password" className="form-control" required  onChange={(e) => setPassState(e.target.value)} />
           </div>
           <button type="submit" className="btn btn-primary">login</button>
         </form>

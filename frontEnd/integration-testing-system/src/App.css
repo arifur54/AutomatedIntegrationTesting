@@ -1,14 +1,16 @@
-.App{
-
-
+.link {
+  text-decoration: none;
+  width: 100px;
+  border: none;
+  background-color: teal;
+  padding: 5px;
+  color: white;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 15px;
 }
 
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.link:hover{
+  color: white;
+  opacity: 90%;
 }
