@@ -7,13 +7,15 @@ import axios from 'axios';
 export default function Login() {
   const [user, setUserState] = useState("");
   const [password, setPassState] = useState("");
+  const [error, setError] = useState("");
   const {dispatch, isFetching} = useContext(Context);
 
   const handleSubmit = async(e) => {
     e.preventDefault()
     dispatch({type: "LOGIN_START"})
+    console.log(user, password)
     try{
-      const res = await axios.post(`Home/login?username=${user}&password=${password}`,{})
+      const res = await axios.post(`Home/login?username=${user}&password=${password}`)
       console.log(res.data)
       if(res.data){
         dispatch({type: "LOGIN_SUCCESS", payload: res.data})
@@ -21,7 +23,9 @@ export default function Login() {
       }
       console.log(res)
     }catch(err){
-      console.log(err)
+      if(err){
+        setError("Login Failure, Account not found")
+      }
       dispatch({type: "LOGIN_FAILURE"})
     }
 
@@ -33,7 +37,6 @@ export default function Login() {
     <div className='container'>
         <img className='logoImg' src ="https://cdn.dribbble.com/users/1070235/screenshots/5325568/lightning_sewer_4x.png" alt="random logo" />
         <h1 className='text-center p-5'>Welcome to Integration Testing!</h1>
-        <h6 className='text-center'>Your Online Soluation to .......</h6>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Username</label>
@@ -45,6 +48,8 @@ export default function Login() {
           </div>
           <button type="submit" className="btn btn-primary">login</button>
         </form>
+        <br />
+        {error && (<div><span style={{color: "red"}}>{error}</span></div>)}
     </div>
   )
 }

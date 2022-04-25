@@ -12,12 +12,13 @@ export default function CreateIntegration() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        console.log(`name ${name}, desc ${desc}`)
         try{
-            const res = await axios.post(`Home/createintegration?userId=${user.userId}&name=${name}&description=${desc}`,{})
+            const res = await axios.post(`Home/createintegration?userId=${user.userId}&name=${name}&description=${desc}`)
             if(res.data){
                 setError(false);
                 window.alert("Integration added successfully")
-                navigate("/")
+                navigate("/menu")
             }
         }catch(err){
             setError(true);
@@ -32,11 +33,11 @@ export default function CreateIntegration() {
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label className="form-label">Integration Name</label>
-            <input required type="text" className="form-control" aria-describedby="emailHelp" onChange={(e) => setIntName(e.target.value)} />
+            <input required type="text" id='intgr2' className="form-control" aria-describedby="emailHelp" onChange={(e) => setIntName(e.target.value)} />
           </div>
           <div className="mb-3">
             <label className="form-label">Integration Description</label>
-            <input required type="text" className="form-control"  onChange={(e) => setIntDesc(e.target.value)} />
+            <input required type="text" id='intgr' className="form-control"  onChange={(e) => setIntDesc(e.target.value)} />
           </div>
           <button type="submit" className="btn btn-success">Create Integration</button>
         </form>

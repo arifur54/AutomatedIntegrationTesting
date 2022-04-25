@@ -18,30 +18,35 @@ export default function Integrations() {
 
     useEffect(() => {
         const getIntegration = async() => {
-            const res = await axios.get(`/Home/getintegrations?userId=${user.userId}`)
-            if(res.data.length === 0){
-                setNoData(true)
-            }else{
-                setRes(res.data); 
-                setNoData(false)
+            try{
+                const res = await axios.get(`/Home/getintegrations?userId=${user.userId}`)
+                if(res.data.length === 0){
+                    setNoData(true)
+                }else{
+                    setRes(res.data); 
+                    setNoData(false)
+                }
+
+            }catch(err){
+                console.log(err)
             }
         }
         getIntegration()
         
     }, [user.userId])
 
-    const handleDelete = async(data) => {
+    const handleDelete = async (data) => {
         let x = window.confirm("Are you sure you want to delete this Integration");
-        try{
-            if(x){
+        if (x) {
+            try {
                 const res = await axios.delete(`Home/deleteintegration?id=${data.integrationId}`)
-                if(res.data){
+                if (res.data) {
                     window.alert("This integration has been deleted");
                     window.location.reload();
                 }
+            } catch (err) {
+                console.log(err);
             }
-        }catch(err){
-            console.log(err);
         }
     }
     const handleEdit = async(modalData) => {
@@ -55,7 +60,7 @@ export default function Integrations() {
        }
     }
     const handletests = (data) => {
-        navigate(`/createTests?integrationId=${data.integrationId}`)   
+        navigate(`/tests?integrationId=${data.integrationId}`)   
     }
 
     const handleShow = (data) => {

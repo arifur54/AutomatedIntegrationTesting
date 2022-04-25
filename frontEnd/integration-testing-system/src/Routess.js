@@ -5,7 +5,7 @@ import Register from './components/register/Register';
 import Menu from './components/menu/Menu'
 import CreateIntegration from './components/menu/Integrations/createIntegration/CreateIntegration';
 import UpdateIntegration from './components/menu/Integrations/updateIntegration/UpdateIntegration';
-import CreateTests from './components/menu/Integrations/createTests/CreateTests'
+import Tests from './components/menu/tests/Tests';
 import { Context } from './components/context/Context';
 
 
@@ -19,7 +19,7 @@ function Routess() {
             <Route path="/menu" element={user? <Menu /> : <Login />} />
             <Route path="/createIntegration" element={user? <CreateIntegration />: <Login />} />
             <Route path="/updateIntegration" element={user? <UpdateIntegration /> : <Login /> } />
-            <Route path="/createTests" element={user? <CreateTests /> : <Login /> } />
+            <Route path="/tests" element={user? <Tests /> : <Login /> } />
         </Routes>
     </div>
   )
